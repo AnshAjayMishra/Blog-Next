@@ -1,63 +1,49 @@
-"use client";
 import { Button } from "@/components/ui/button";
-import {ModeToggle}  from "../components/ui/ModeToggle";
-import Image from "next/image";
 import Link from "next/link";
 
-export default function HomePage() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-black dark:text-gray-200 text-center px-6 py-12 relative">
-     
-      <div className="mb-6 pointer-events-none dark:bg-gray-600">
-      <Image src="/next.svg" alt="Light Mode Icon" width={100} height={100} className="block dark:hidden" />
-      <Image src="/nextjs-b.png" alt="Dark Mode Icon" width={120} height={120} className="hidden dark:block" />
+export default function BlogCards() {
+    const blogs = [
+      {
+        title: "Understanding React Hooks",
+        description: "A deep dive into the world of React Hooks and how they simplify state management in functional components.",
+        author: "John Doe",
+        date: "March 11, 2025",
+        slug: "understanding-react-hooks"
+      },
+      {
+        title: "Mastering JavaScript Closures",
+        description: "A guide to understanding closures in JavaScript and their practical applications.",
+        author: "Jane Smith",
+        date: "March 10, 2025",
+        slug: "mastering-javascript-closures"
+      },
+      {
+        title: "CSS Grid vs Flexbox",
+        description: "Comparing CSS Grid and Flexbox for modern web layout design and when to use each.",
+        author: "Alex Johnson",
+        date: "March 9, 2025",
+        slug: "css-grid-vs-flexbox"
+      }
+    ];
+  
+    return (
+      <div className="min-h-screen p-6 flex justify-center">
+        <div className="max-w-3xl w-full">
+          <h1 className="text-3xl font-bold  mb-6">Blogs</h1>
+          <div className="space-y-4">
+            {blogs.map((blog, index) => (
+              <div key={index} className=" p-5 rounded-lg shadow-md border border-zinc-200 dark:border-zinc-900">
+                <h2 className="text-xl font-semibold ">{blog.title}</h2>
+                <p className=" mt-2">{blog.description}</p>
+                <div className="mt-4 text-sm ">By {blog.author} • {blog.date}</div>
+                
+                <Link href={`/blogpost/${blog.slug}`}>
+                  <Button variant="outline" className=" hover:bg-zinc-600 dark:hover:bg-zinc-400 mt-4 bg-black dark:bg-white text-white dark:text-black">Click here</Button>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-
-      <h1 className="text-4xl font-bold mb-4">
-        Next.js + Tailwind CSS + TypeScript Starter
-      </h1>
-
-      <p className="text-gray-500 dark:text-gray-300 mb-6 max-w-2xl">
-        A starter for Next.js, Tailwind CSS, and TypeScript with Absolute Import,
-        SEO, Link component, pre-configured with Husky.
-      </p>
-
-      <a
-        href="https://github.com/AnshAjayMishra/NextJs-Boiler"
-        className="text-zinc-600 hover:text-gray-400 dark:text-gray-300 dark:hover:text-zinc-600 underline mb-6"
-      >
-        See the repository &gt;
-      </a>
-
-      <Button variant="outline" ><a href="https://github.com/AnshAjayMishra/NextJs-Boiler" className="hover:text-zinc-500">Install</a> </Button>
-
-      {/* Toggle Switch for Light/Dark Mode */}
-      <div className="flex items-center gap-4 py-3">
-        <p className="text-gray-500 dark:text-gray-300">Dark Mode:  <ModeToggle/></p>
-        
-      </div>
-
-      <div className="flex gap-4 mt-6">
-        <Link href="/components">
-          <Button className="px-6 py-2">See all components</Button>
-        </Link>
-        <Link
-          href="https://vercel.com/"
-          target="_blank"
-        >
-          <Button variant="outline">Deploy to Vercel</Button>
-        </Link>
-      </div>
-
-      <footer className="absolute bottom-6 text-gray-500 dark:text-gray-300 text-md">
-        © 2025 By{" "}
-        <a
-          href="https://github.com/anshajaymishra"
-          className="underline hover:text-black dark:hover:text-gray-100"
-        >
-          Ansh Ajay Mishra
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
