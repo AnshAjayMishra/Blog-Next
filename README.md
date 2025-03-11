@@ -1,83 +1,36 @@
-# NextJs-Boiler
+# Blog README
 
-🚀 A simple and customizable Next.js boilerplate with Tailwind CSS, TypeScript, and ShadCN UI components.
+## Overview
+This is a personal blog built using Next.js, where I share insights and tutorials on various web development topics. The blog covers technologies like JavaScript, React, and full-stack development.
 
 ## Features
+- 📝 Markdown-based blog posts
+- 🎨 Tailwind CSS for styling
+- 🌐 SEO-friendly with Next.js optimizations
+- 📱 Fully responsive design
+- 🔍 Fast navigation using Next.js dynamic routing
 
-- ⚡ **Next.js 14** - The latest version for optimal performance.
-- 🎨 **Tailwind CSS** - For fast and efficient styling.
-- 🌙 **Dark Mode Toggle** - Built-in theme switcher using `next-themes`.
-- 🏗 **ShadCN UI Components** - Pre-built and customizable UI components.
-- 🔗 **Absolute Imports** - Clean and maintainable project structure.
-- ✅ **TypeScript Support** - Ensuring type safety and better development experience.
+## Adding a New Blog Post
+Blog posts are written in Markdown and stored in the `posts/` directory. Each post should have frontmatter metadata at the top:
 
+```md
+---
+title: "Understanding React Hooks"
+description: "A deep dive into React Hooks."
+author: "John Doe"
+date: "2025-03-11"
+slug: "understanding-react-hooks"
 ---
 
-## Installation
-
-### 1️⃣ Using `npx`
-Run the following command to create a new project using this boilerplate:
-
-```sh
-npx create-next-app@latest my-project -e https://github.com/AnshAjayMishra/NextJs-Boiler
-cd my-project
+# Introduction
+...
 ```
-
-### 2️⃣ Clone the Repository
-If you prefer to clone manually:
-
-```sh
-git clone https://github.com/AnshAjayMishra/NextJs-Boiler.git my-project
-cd my-project
-```
-
----
-
-## Setup & Usage
-
-### Install Dependencies
-```sh
-yarn install  # or npm install
-```
-
-### Start Development Server
-```sh
-yarn dev  # or npm run dev
-```
-
-Your app will be available at `http://localhost:3000` 🎉
-
----
 
 ## Deployment
+You can deploy this blog easily using Vercel:
 
-Easily deploy your app using Vercel:
+```bash
+# Install Vercel CLI
+npm install -g vercel
 
-```sh
-vercel
-```
-
-Or click the button below:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/AnshAjayMishra/NextJs-Boiler)
-
----
-
-## Contributing 🤝
-
-Contributions are welcome! Feel free to fork, improve, and submit a PR.
-
-```sh
-git checkout -b feature-branch
-# Make your changes
-```
-
----
-
-## License
-
-📜 MIT License. Free to use and modify. Enjoy building! 🚀
----
-
-**By [AnshAjayMishra](https://github.com/AnshAjayMishra) ✨**
-
+# By AnshAjayMishra
