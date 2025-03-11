@@ -32,5 +32,6 @@ You can deploy this blog easily using Vercel:
 ```bash
 # Install Vercel CLI
 npm install -g vercel
+```
 
-# By AnshAjayMishra
+## AnshAjayMishra
