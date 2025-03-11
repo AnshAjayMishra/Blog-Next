@@ -9,6 +9,8 @@ import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypePrettyCode from "rehype-pretty-code";
 import { transformerCopyButton } from "@rehype-pretty/transformers";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 // Define the proper params type according to Next.js App Router
 export interface BlogPostParams {
@@ -23,8 +25,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   // Await params if it's a Promise
   const resolvedParams = await Promise.resolve(params);
-  
-  const postPath = path.join(process.cwd(), "src/app/blogpost/content", `${resolvedParams.slug}.md`);
+
+  const postPath = path.join(
+    process.cwd(),
+    "src/app/blogpost/content",
+    `${resolvedParams.slug}.md`
+  );
 
   try {
     const fileContent = fs.readFileSync(postPath, "utf-8");
@@ -32,7 +38,7 @@ export async function generateMetadata({
 
     return {
       title: data.title,
-      description: data.description 
+      description: data.description,
     };
   } catch (error) {
     console.error("Metadata Error:", error);
@@ -48,12 +54,12 @@ export async function generateStaticParams(): Promise<BlogPostParams[]> {
   try {
     const postsDirectory = path.join(process.cwd(), "src/app/blogpost/content");
     if (!fs.existsSync(postsDirectory)) return [];
-    
+
     const files = fs.readdirSync(postsDirectory);
     return files
-      .filter(file => file.endsWith(".md"))
-      .map(file => ({
-        slug: file.replace(/\.md$/, "")
+      .filter((file) => file.endsWith(".md"))
+      .map((file) => ({
+        slug: file.replace(/\.md$/, ""),
       }));
   } catch (error) {
     console.error("Error generating static params:", error);
@@ -69,8 +75,12 @@ export default async function Page({
 }) {
   // Await params if it's a Promise
   const resolvedParams = await Promise.resolve(params);
-  
-  const postPath = path.join(process.cwd(), "src/app/blogpost/content", `${resolvedParams.slug}.md`);
+
+  const postPath = path.join(
+    process.cwd(),
+    "src/app/blogpost/content",
+    `${resolvedParams.slug}.md`
+  );
 
   try {
     if (!fs.existsSync(postPath)) return notFound();
@@ -80,7 +90,7 @@ export default async function Page({
     const { data, content } = matter(fileContent);
 
     // Convert Markdown to HTML
-    const processor = unified()
+      const processor = unified()
       .use(remarkParse)
       .use(remarkRehype)
       .use(rehypePrettyCode, {
@@ -97,21 +107,36 @@ export default async function Page({
     const htmlContent = (await processor.process(content)).toString();
 
     return (
-      <div className="max-w-3xl mx-auto mt-10 p-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-200">{data.title}</h1>
+      <>
+     <Link href='/' className="max-w-3xl mx-auto flex items-center justify-baseline">
+  <Button 
+    variant="outline" 
+    className="bg-white dark:bg-[#080808] text-black dark:text-white rounded-xl absolute top-0 mt-3"
+  >
+    ←
+  </Button>
+</Link>
 
-        <div className="text-gray-500 dark:text-gray-300 mt-2 flex justify-between text-sm">
-          <span>By {data.author || "Unknown"}</span>
-          <span>{data.date || "Unknown Date"}</span>
+        <div className="max-w-3xl mx-auto mt-12 p-6">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-200">
+            {data.title}
+          </h1>
+
+          <div className="text-gray-500 dark:text-gray-300 mt-2 flex justify-between text-sm">
+            <span>By {data.author || "Unknown"}</span>
+            <span>{data.date || "Unknown Date"}</span>
+          </div>
+
+          <p className="text-gray-700 dark:text-gray-300 mt-4">
+            {data.description}
+          </p>
+
+          {/* Apply Tailwind Typography styles with proper width */}
+          <article className="prose prose-md dark:prose-invert mt-6 w-full max-w-none">
+            <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+          </article>
         </div>
-
-        <p className="text-gray-700 dark:text-gray-300 mt-4">{data.description}</p>
-
-        {/* Apply Tailwind Typography styles with proper width */}
-        <article className="prose prose-md dark:prose-invert mt-6 w-full max-w-none">
-          <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-        </article>
-      </div>
+      </>
     );
   } catch (error) {
     console.error("Error reading file:", error);

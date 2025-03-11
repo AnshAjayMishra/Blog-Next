@@ -29,6 +29,7 @@ export default function BlogCards() {
     return (
       <div className="min-h-screen p-6 flex justify-center">
         <div className="max-w-3xl w-full">
+          
           <h1 className="text-3xl font-bold  mb-6">Blogs</h1>
           <div className="space-y-4">
             {blogs.map((blog, index) => (
